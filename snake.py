@@ -10,26 +10,25 @@ def get_body_segment():
 
 class Snake(list):
     def __init__(self):
-        self.create_starting_snake()
+        super().__init__()
+        self.create_starting_snake(length=3)
 
-    def create_starting_snake(self):
-        """Initialise snake of length 3X body segments"""
-        for _ in range(3):
+    def create_starting_snake(self, length):
+        """Creates a new snake of specified length"""
+        self.append(get_body_segment())
+        for _ in range(length - 1):
             self.add_body_segment()
 
     def add_body_segment(self):
-        """Adds a new body segment to the snake"""
-        if len(self) == 0:
-            self.append(get_body_segment())
-        else:
-            new_segment = get_body_segment()
-            # TODO: account for current direction
-            xcor = (self[len(self) - 1].xcor() - 20)
-            new_segment.setpos(xcor, 0)
-            self.append(new_segment)
+        """Adds a new body segment to the end of the snake"""
+        new_segment = get_body_segment()
+        # TODO: account for current direction
+        xcor = (self[len(self) - 1].xcor() - 20)
+        new_segment.setpos(xcor, 0)
+        self.append(new_segment)
 
     def move(self):
-        """Moves the snake smoothly and continuously forwards"""
+        """Moves the snake forwards by 20 steps"""
         for idx, body_segment in enumerate(reversed(self)):
             # if current body segment is the head, move it forward
             if idx == (len(self) - 1):

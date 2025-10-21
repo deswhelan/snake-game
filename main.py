@@ -1,5 +1,5 @@
 from snake import Snake
-from turtle import Screen, Turtle
+from turtle import Screen
 import time
 
 screen = Screen()
