@@ -38,7 +38,7 @@ class Snake(list):
                 body_segment.goto(self[-idx + 1].pos())
 
     # TODO: stretch - refactor "turn" methods into one take an "orientation" argument
-    # TODO: check for valid turns (e.g. cannot turn south if currently facing north)
+    # TODO: stretch - handle bug where invalid turns allowed if two turns performed quickly (e.g. face_east+face_south when heading north)
     def face_north(self):
         if self.head.heading() == 270:
             return

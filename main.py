@@ -22,8 +22,11 @@ screen.onkey(snake.face_west, "Left")
 
 while not game_is_over:
     # TODO: implement
-    if food.pos() == snake.head.pos():
+    if snake.head.distance(food) < 15:
         food.drop_food()
+        # TODO: implement
+        # snake.add_body_segment()
+    screen.update()
     # TODO: iterate speed over time (?)
     time.sleep(.1)
     snake.move()
