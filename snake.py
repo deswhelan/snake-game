@@ -1,6 +1,5 @@
 from turtle import Turtle
 
-# TODO: implement a snake class
 def get_body_segment():
     """Creates and returns a new body segment"""
     new_segment = Turtle("square")

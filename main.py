@@ -1,3 +1,4 @@
+from food import Food
 from snake import Snake
 from turtle import Screen
 import time
@@ -10,6 +11,8 @@ screen.listen()
 screen.tracer(0)
 
 snake = Snake()
+food = Food()
+
 game_is_over = False
 
 screen.onkey(snake.face_north, "Up")
@@ -18,7 +21,9 @@ screen.onkey(snake.face_east, "Right")
 screen.onkey(snake.face_west, "Left")
 
 while not game_is_over:
-    screen.update()
+    # TODO: implement
+    if food.pos() == snake.head.pos():
+        food.drop_food()
     # TODO: iterate speed over time (?)
     time.sleep(.1)
     snake.move()
