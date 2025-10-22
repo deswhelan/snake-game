@@ -3,6 +3,11 @@ from turtle import Turtle
 COLOUR = "white"
 SHAPE = "square"
 
+NORTH = 90
+SOUTH = 270
+EAST = 0
+WEST = 180
+
 def get_body_segment():
     """Creates and returns a new body segment"""
     new_segment = Turtle(SHAPE)
@@ -24,42 +29,52 @@ class Snake(list):
 
     def add_body_segment(self):
         """Adds a new body segment to the end of the snake"""
+        current_tail = self[-1]
+        current_tail_direction = current_tail.heading()
+
         new_segment = get_body_segment()
-        # TODO: account for current direction
-        xcor = (self[len(self) - 1].xcor() - 20)
-        new_segment.setpos(xcor, 0)
+        new_segment.setheading(current_tail_direction)
+
+        if current_tail_direction == NORTH:
+            new_segment.setpos(current_tail.xcor(), current_tail.ycor() - 20)
+        elif current_tail_direction == SOUTH:
+            new_segment.setpos(current_tail.xcor(), current_tail.ycor() + 20)
+        elif current_tail_direction == EAST:
+            new_segment.setpos(current_tail.xcor() - 20, current_tail.ycor())
+        elif current_tail_direction == WEST:
+            new_segment.setpos(current_tail.xcor() + 20, current_tail.ycor())
+
         self.append(new_segment)
 
     def move(self):
         """Moves the snake forwards by 20 steps"""
-        for idx, body_segment in enumerate(reversed(self)):
-            # if current body segment is the head, move it forward
-            if idx == (len(self) - 1):
-                body_segment.fd(20)
-            # otherwise, move segment to the current position of the segment immediately in front of it
-            else:
-                body_segment.goto(self[-idx + 1].pos())
+        # Move each segment (except the head) to the position of the segment in front
+        for x in range((len(self) - 1), 0, -1):
+            self[x].goto(self[x - 1].pos())
+            # Update the direction of the segment to the direction of the segment in front
+            self[x].setheading(self[x - 1].heading())
+        self.head.fd(20)
 
     # TODO: stretch - refactor "turn" methods into one metho which takes an "orientation" argument
     # TODO: stretch - handle bug where invalid turns allowed if two turns performed quickly (e.g. face_east+face_south when heading north)
     def face_north(self):
-        if self.head.heading() == 270:
+        if self.head.heading() == SOUTH:
             return
-        self.head.setheading(90)
+        self.head.setheading(NORTH)
 
     def face_south(self):
-        if self.head.heading() == 90:
+        if self.head.heading() == NORTH:
             return
-        self.head.setheading(270)
+        self.head.setheading(SOUTH)
 
     def face_east(self):
-        if self.head.heading() == 180:
+        if self.head.heading() == WEST:
             return
-        self.head.setheading(0)
+        self.head.setheading(EAST)
 
     def face_west(self):
-        if self.head.heading() == 0:
+        if self.head.heading() == EAST:
             return
-        self.head.setheading(180)
+        self.head.setheading(WEST)
 
-    # TODO: clear snake on game over(?)
+    # TODO: clear snake on game over(?) and/or reset(?)

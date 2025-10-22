@@ -35,11 +35,10 @@ while not game_is_over:
         if snake.head.distance(food) < 15:
             food.drop_food()
             scoreboard.update_score()
-            # TODO: implement
-            # snake.add_body_segment()
+            snake.add_body_segment()
+        snake.move()
         screen.update()
         # TODO: iterate speed over time (?)
         time.sleep(.1)
-        snake.move()
 
 screen.exitonclick()
