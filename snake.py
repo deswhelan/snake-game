@@ -27,6 +27,7 @@ class Snake(list):
         for _ in range(length - 1):
             self.add_body_segment()
 
+    # TODO: stretch - refactor so that current tail is simply duplicated in the same position (i.e. don't worry about direction) ?
     def add_body_segment(self):
         """Adds a new body segment to the end of the snake"""
         current_tail = self[-1]
@@ -76,5 +77,12 @@ class Snake(list):
         if self.head.heading() == EAST:
             return
         self.head.setheading(WEST)
+
+    def head_has_hit_body(self):
+        # Do not include head in this check
+        for x in range(1, len(self) - 1, 1):
+            if self.head.distance(self[x]) < 15:
+                return True
+        return False
 
     # TODO: clear snake on game over(?) and/or reset(?)
