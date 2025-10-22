@@ -1,9 +1,12 @@
 from turtle import Turtle
 
+COLOUR = "white"
+SHAPE = "square"
+
 def get_body_segment():
     """Creates and returns a new body segment"""
-    new_segment = Turtle("square")
-    new_segment.color("white")
+    new_segment = Turtle(SHAPE)
+    new_segment.color(COLOUR)
     new_segment.penup()
     return new_segment
 
