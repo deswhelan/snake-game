@@ -40,7 +40,7 @@ class Snake(list):
             else:
                 body_segment.goto(self[-idx + 1].pos())
 
-    # TODO: stretch - refactor "turn" methods into one take an "orientation" argument
+    # TODO: stretch - refactor "turn" methods into one metho which takes an "orientation" argument
     # TODO: stretch - handle bug where invalid turns allowed if two turns performed quickly (e.g. face_east+face_south when heading north)
     def face_north(self):
         if self.head.heading() == 270:
@@ -61,3 +61,5 @@ class Snake(list):
         if self.head.heading() == 0:
             return
         self.head.setheading(180)
+
+    # TODO: clear snake on game over(?)

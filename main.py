@@ -23,14 +23,23 @@ screen.onkey(snake.face_east, "Right")
 screen.onkey(snake.face_west, "Left")
 
 while not game_is_over:
-    if snake.head.distance(food) < 15:
-        food.drop_food()
-        scoreboard.update_score()
-        # TODO: implement
-        # snake.add_body_segment()
-    screen.update()
-    # TODO: iterate speed over time (?)
-    time.sleep(.1)
-    snake.move()
+    # Detect game over scenarios
+    if (snake.head.xcor() >= 295
+        or snake.head.xcor() <= -305
+        or snake.head.ycor() >= 305
+        or snake.head.ycor() <= -295):
+        game_is_over = True
+        scoreboard.display_final_score()
+        # TODO: ask if player wants to play again and, if so, start a new game (?)
+    else:
+        if snake.head.distance(food) < 15:
+            food.drop_food()
+            scoreboard.update_score()
+            # TODO: implement
+            # snake.add_body_segment()
+        screen.update()
+        # TODO: iterate speed over time (?)
+        time.sleep(.1)
+        snake.move()
 
 screen.exitonclick()
