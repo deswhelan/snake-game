@@ -56,7 +56,7 @@ class Snake(list):
             self[x].setheading(self[x - 1].heading())
         self.head.fd(20)
 
-    # TODO: stretch - refactor "turn" methods into one metho which takes an "orientation" argument
+    # TODO: stretch - refactor "turn" methods into one method which takes an "orientation" argument
     # TODO: stretch - handle bug where invalid turns allowed if two turns performed quickly (e.g. face_east+face_south when heading north)
     def face_north(self):
         if self.head.heading() == SOUTH:
@@ -80,8 +80,8 @@ class Snake(list):
 
     def head_has_hit_body(self):
         # Do not include head in this check
-        for x in range(1, len(self) - 1, 1):
-            if self.head.distance(self[x]) < 15:
+        for body_segment in self[1:]:
+            if self.head.distance(body_segment) < 15:
                 return True
         return False
 
