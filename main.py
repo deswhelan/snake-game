@@ -29,8 +29,9 @@ while not game_is_over:
         or snake.head.xcor() <= -305
         or snake.head.ycor() >= 305
         or snake.head.ycor() <= -295):
-        game_is_over = True
-        scoreboard.display_final_score()
+        scoreboard.reset_score()
+        snake.reset_game()
+        # scoreboard.display_final_score()
         # TODO: ask if player wants to play again and, if so, start a new game (?)
     else:
         # Detect collision with food

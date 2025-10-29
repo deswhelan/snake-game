@@ -2,6 +2,7 @@ from turtle import Turtle
 
 COLOUR = "white"
 SHAPE = "square"
+STARTING_LENGTH = 3
 
 NORTH = 90
 SOUTH = 270
@@ -18,7 +19,7 @@ def get_body_segment():
 class Snake(list):
     def __init__(self):
         super().__init__()
-        self.create_starting_snake(length=3)
+        self.create_starting_snake(length=STARTING_LENGTH)
         self.head = self[0]
 
     def create_starting_snake(self, length):
@@ -84,5 +85,14 @@ class Snake(list):
             if self.head.distance(body_segment) < 15:
                 return True
         return False
+
+    # TODO:
+    def reset_game(self):
+        for body_segment in self:
+            body_segment.goto(1000, 1000)
+        self.clear()
+        self.create_starting_snake(STARTING_LENGTH)
+        self.head = self[0]
+
 
     # TODO: clear snake on game over(?) and/or reset(?)
